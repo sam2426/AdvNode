@@ -25,3 +25,14 @@ customPage.login();
 customPage.page.goto();
 //#endregion
 
+//#region Proper approach with Proxies
+const superPage = new Proxy(customPage, {
+    get: function(target, property) {
+        return target[property] || page[property];
+    }
+})
+
+superPage.login();
+superPage.goto();
+superPage.setCookie();
+//#endregion
